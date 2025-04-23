@@ -36,8 +36,9 @@ model ServiceRecord {
   serviceDate    DateTime
   completionDate DateTime?
   description    String
-  status         Status   // Consider using enum for: "pending", "in-progress", "done"
-  @@map("service")
+  status         Status  
+  
+  @@map("services")
 }
 
 enum Status {

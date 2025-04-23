@@ -4,49 +4,30 @@ import { customersService } from "./customers.service";
 import { Request, Response } from 'express';
 
 
-const createCustomer = async (req: Request, res: Response) => {
-  try {
+const createCustomer =catchAsync( async (req: Request, res: Response) => {
     const data = req.body;
-
-
     const result = await customersService.createCustomerIntoDB(data);
-
     sendResponse(res, {
       success:true,
       statusCode:201,
       message:"Customer created successfully",
       data: result
  })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to create customer',
-    });
-  }
-};
-const getAllCustomers = async (req: Request, res: Response) => {
-  try {
-    const result = await customersService.getAllCustomersFromDB();
+});
 
-    sendResponse(res, {
-      success:true,
-      statusCode:200,
-      message:"Customers fetched successfully",
-      data: result
- })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fatch customer',
-    });
-  }
-};
-const getAllCustomersById = async (req: Request, res: Response) => {
-  try {
+const getAllCustomers = catchAsync(async (req: Request, res: Response) => {
+  const result = await customersService.getAllCustomersFromDB();
+  sendResponse(res, {
+    success:true,
+    statusCode:200,
+    message:"Customers fetched successfully",
+    data: result
+})
+});
+
+
+const getAllCustomersById = catchAsync(async (req: Request, res: Response) => {
   const {id} = req.params;
-
     const result = await customersService.getSingleCustomersFromDB(id);
 
     sendResponse(res, {
@@ -55,14 +36,7 @@ const getAllCustomersById = async (req: Request, res: Response) => {
       message:"Customers fetched successfully",
       data: result
  })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fatch customer',
-    });
-  }
-};
+})
 
 // update customer by id 
 const updateCustomer = catchAsync(async(req:Request, res:Response)=>{
