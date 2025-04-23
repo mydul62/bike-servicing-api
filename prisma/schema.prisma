@@ -1,3 +1,13 @@
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Customer {
   customerId String   @id @default(uuid())
   name       String
@@ -5,6 +15,7 @@ model Customer {
   phone      String
   createdAt  DateTime @default(now())
   bikes      Bike[]   // One-to-many relation with Bike
+  @@map("customers")
 }
 
 model Bike {
@@ -14,8 +25,8 @@ model Bike {
   year       Int
   customerId String
   customer   Customer @relation(fields: [customerId], references: [customerId])
-
   serviceRecords ServiceRecord[]  // One-to-many relation with ServiceRecord
+  @@map("bikes")
 }
 
 model ServiceRecord {
@@ -25,5 +36,12 @@ model ServiceRecord {
   serviceDate    DateTime
   completionDate DateTime?
   description    String
-  status         String   // Consider using enum for: "pending", "in-progress", "done"
+  status         Status   // Consider using enum for: "pending", "in-progress", "done"
+  @@map("service")
+}
+
+enum Status {
+  pending
+  in_progress
+  done
 }
