@@ -1,5 +1,5 @@
-import { catchAsync } from "../share/catchAsnc";
-import { sendResponse } from "../share/sendResponse";
+import { catchAsync } from "../../share/catchAsnc";
+import { sendResponse } from "../../share/sendResponse";
 import { customersService } from "./customers.service";
 import { Request, Response } from 'express';
 

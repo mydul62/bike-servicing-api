@@ -1,6 +1,6 @@
 import { Bike, ServiceRecord } from "@prisma/client";
-import { prisma } from "../share/prismaClient";
-
+import { prisma } from "../../share/prismaClient";
+import {subDays} from "date-fns"
 
 // create services 
 const createServiceIntoDB =async (data:ServiceRecord)=>{
@@ -13,8 +13,23 @@ const createServiceIntoDB =async (data:ServiceRecord)=>{
 // get all services 
 const getAllServicesFromDB =async ()=>{
   const result =prisma.serviceRecord.findMany()
-  console.log(result)
   return result;
+}
+
+
+const getAllStatusServicesFromDB =async ()=>{
+  const sevenDayAgo = subDays(new Date(), 7)
+  const result = await prisma.serviceRecord.findMany({
+      where:{
+          status:{
+              in:['pending','in_progress']
+          },
+          serviceDate:{
+              lt:sevenDayAgo
+          }
+      }
+  })
+  return result
 }
 
 // get single service by id
@@ -43,4 +58,5 @@ export const servicesService ={
   getAllServicesFromDB,
   getSingleServiceFromDB,
   updateServiceIntoDB,
+  getAllStatusServicesFromDB
 }

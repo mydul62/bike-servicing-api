@@ -1,5 +1,5 @@
 import { Customer } from "@prisma/client";
-import { prisma } from "../share/prismaClient";
+import { prisma } from "../../share/prismaClient";
 
 
 // create customer 

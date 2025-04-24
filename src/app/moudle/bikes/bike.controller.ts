@@ -1,5 +1,5 @@
-import { catchAsync } from "../share/catchAsnc";
-import { sendResponse } from "../share/sendResponse";
+import { catchAsync } from "../../share/catchAsnc";
+import { sendResponse } from "../../share/sendResponse";
 import { Request, Response } from 'express';
 import { BikeService } from "./bike.service";
 
@@ -16,7 +16,6 @@ const createBike =catchAsync( async (req: Request, res: Response) => {
 });
 //  get all bike 
 const getAllBikes = catchAsync(async (req: Request, res: Response) => {
-console.log("first")
   const result = await BikeService.getAllBikesFromDB();
   sendResponse(res, {
     success:true,

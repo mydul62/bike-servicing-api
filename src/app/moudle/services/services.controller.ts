@@ -1,5 +1,5 @@
-import { catchAsync } from "../share/catchAsnc";
-import { sendResponse } from "../share/sendResponse";
+import { catchAsync } from "../../share/catchAsnc";
+import { sendResponse } from "../../share/sendResponse";
 import { Request, Response } from 'express';
 import { servicesService } from "./services.service";
 
@@ -17,6 +17,15 @@ const createService =catchAsync( async (req: Request, res: Response) => {
 
 const getAllServices = catchAsync(async (req: Request, res: Response) => {
   const result = await servicesService.getAllServicesFromDB();
+  sendResponse(res, {
+    success:true,
+    statusCode:200,
+    message:"Service records fetched successfully",
+    data: result
+})
+});
+const getAllOverdeuService = catchAsync(async (req: Request, res: Response) => {
+  const result = await servicesService.getAllStatusServicesFromDB();
   sendResponse(res, {
     success:true,
     statusCode:200,
@@ -59,6 +68,7 @@ export const servicesController = {
   getAllServices,
   getSingleServiceById,
   updateService,
+  getAllOverdeuService
 
 }
 

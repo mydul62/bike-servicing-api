@@ -5,7 +5,7 @@ export const  GlobalErrorHandle = (err:any, req:Request, res:Response, next:Next
         res.status(statusCode).json({
             success:false,
             status: statusCode,
-            message:err.message || "something went Wrong!",
+            message:err.message || "something Going Wrong!",
             stack: process.env.NODE_ENV !== "production" ? err.stack : undefined,
         })
     

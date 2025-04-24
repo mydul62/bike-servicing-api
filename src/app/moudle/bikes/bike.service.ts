@@ -1,5 +1,5 @@
 import { Bike } from "@prisma/client";
-import { prisma } from "../share/prismaClient";
+import { prisma } from "../../share/prismaClient";
 
 
 // create bike 

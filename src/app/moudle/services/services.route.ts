@@ -3,6 +3,7 @@ import { servicesController } from './services.controller';
 
 const router = express.Router();
 
+router.get("/status", servicesController.getAllOverdeuService);
 router.post("/", servicesController.createService);
 router.get("/", servicesController.getAllServices);
 router.get("/:id", servicesController.getSingleServiceById);
